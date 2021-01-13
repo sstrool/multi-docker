@@ -1,4 +1,6 @@
 sudo: required
+language: generic
+
 services:
   - docker
 
@@ -6,8 +8,8 @@ before_install:
   - docker build -t sstrool/react-test -f ./client/Dockerfile.dev ./client
 
 script:
-  - docker run -e CI=true sstrool/react-test npm test -- --coverage
-
+  - docker run -e CI=true sstrool/react-test npm test
+  
 after_success:
   - docker build -t sstrool/multi-client ./client
   - docker build -t sstrool/multi-nginx ./nginx
