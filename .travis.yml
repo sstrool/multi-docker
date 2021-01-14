@@ -1,9 +1,9 @@
 sudo: required
 language: generic
- 
+
 services:
   - docker
- 
+
 before_install:
   - docker build -t sstrool/react-test -f ./client/Dockerfile.dev ./client
 
@@ -15,11 +15,10 @@ after_success:
   - docker build -t sstrool/multi-nginx ./nginx
   - docker build -t sstrool/multi-server ./server
   - docker build -t sstrool/multi-worker ./worker
-  #Login to docker CLI
-  echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
-  #Push images to docker hub
+  # Log in to the docker CLI
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+  # Take those images and push them to docker hub
   - docker push sstrool/multi-client
   - docker push sstrool/multi-nginx
   - docker push sstrool/multi-server
   - docker push sstrool/multi-worker
-
